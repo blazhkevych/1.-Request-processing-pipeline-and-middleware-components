@@ -1,10 +1,9 @@
-﻿namespace Number_interpreter
+﻿namespace Number_interpreter;
+
+public static class FromTwentyToHundredExtensions
 {
-    public static class FromTwentyToHundredExtensions
+    public static IApplicationBuilder UseFromTwentyToHundred(this IApplicationBuilder builder)
     {
-        public static IApplicationBuilder UseFromTwentyToHundred(this IApplicationBuilder builder)
-        {
-            return builder.UseMiddleware<FromTwentyToHundredMiddleware>();
-        }
+        return builder.UseMiddleware<FromTwentyToHundredMiddleware>();
     }
 }

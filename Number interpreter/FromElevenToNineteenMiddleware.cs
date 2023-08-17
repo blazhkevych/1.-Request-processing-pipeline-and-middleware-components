@@ -1,35 +1,38 @@
-﻿namespace Number_interpreter
+﻿namespace Number_interpreter;
+
+public class FromElevenToNineteenMiddleware
 {
-    public class FromElevenToNineteenMiddleware
+    private readonly RequestDelegate _next;
+
+    public FromElevenToNineteenMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate _next;
+        _next = next;
+    }
 
-        public FromElevenToNineteenMiddleware(RequestDelegate next)
+    public async Task Invoke(HttpContext context)
+    {
+        string? token = context.Request.Query["number"];
+        try
         {
-            this._next = next;
+            var number = Convert.ToInt32(token);
+            number = Math.Abs(number);
+            if (number < 11 || number > 19)
+            {
+                await _next.Invoke(context);
+            }
+            else
+            {
+                string[] Numbers =
+                {
+                    "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen",
+                    "nineteen"
+                };
+                await context.Response.WriteAsync("Your number is " + Numbers[number - 11]);
+            }
         }
-
-        public async Task Invoke(HttpContext context)
+        catch (Exception)
         {
-            string? token = context.Request.Query["number"];
-            try
-            {
-                int number = Convert.ToInt32(token);
-                number = Math.Abs(number);
-                if (number < 11 || number > 19)
-                {
-                    await _next.Invoke(context);
-                }
-                else
-                {
-                    string[] Numbers = { "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
-                    await context.Response.WriteAsync("Your number is " + Numbers[number - 11]);
-                }
-            }
-            catch (Exception)
-            {
-                await context.Response.WriteAsync("Incorrect parameter");
-            }
+            await context.Response.WriteAsync("Incorrect parameter");
         }
     }
 }

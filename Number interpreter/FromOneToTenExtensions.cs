@@ -1,10 +1,9 @@
-﻿namespace Number_interpreter
+﻿namespace Number_interpreter;
+
+public static class FromOneToTenExtensions
 {
-    public static class FromOneToTenExtensions
+    public static IApplicationBuilder UseFromOneToTen(this IApplicationBuilder builder)
     {
-        public static IApplicationBuilder UseFromOneToTen(this IApplicationBuilder builder)
-        {
-            return builder.UseMiddleware<FromOneToTenMiddleware>();
-        }
+        return builder.UseMiddleware<FromOneToTenMiddleware>();
     }
 }
