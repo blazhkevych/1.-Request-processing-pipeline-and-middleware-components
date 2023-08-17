@@ -29,7 +29,10 @@
                     string[] Numbers = { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
                     if (number > 0)
                     {
-                        await context.Response.WriteAsync("Your number is " + result + " " + Numbers[number - 1]);
+                        if (result == string.Empty)
+                            await context.Response.WriteAsync("Your number is " + Numbers[number - 1]);
+                        else
+                            await context.Response.WriteAsync("Your number is " + result + " " + Numbers[number - 1]);
                     }
                     else
                         await context.Response.WriteAsync("Your number is " + result);
