@@ -1,13 +1,18 @@
-/*
-Введение в ASP.NET Core. 
-Конвейер обработки запроса и middleware-компоненты.
-Разработать Web-приложение “Интерпретатор чисел”. Диапазон чисел - от 1 до 100000. Для обработки HTTP GET-запроса необходимо 
-использовать несколько middleware-компонент.
-*/
+using Number_interpreter;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Все сессии работают поверх объекта IDistributedCache, и 
+// ASP.NET Core предоставляет встроенную реализацию IDistributedCache
+builder.Services.AddDistributedMemoryCache();// добавляем IDistributedMemoryCache
+builder.Services.AddSession();  // Добавляем сервисы сессии
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
+app.UseSession();   // Добавляем middleware-компонент для работы с сессиями
+
+// Добавляем middleware-компоненты в конвейер обработки запроса.
+app.UseFromTwentyToHundred();
+app.UseFromElevenToNineteen();
+app.UseFromOneToTen();
 
 app.Run();
