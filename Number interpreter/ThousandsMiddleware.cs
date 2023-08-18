@@ -2,11 +2,11 @@
 
 namespace Number_interpreter;
 
-public class FromOneHundredOneToHundredThousandMiddleware
+public class ThousandsMiddleware
 {
     private readonly RequestDelegate _next;
 
-    public FromOneHundredOneToHundredThousandMiddleware(RequestDelegate next)
+    public ThousandsMiddleware(RequestDelegate next)
     {
         _next = next;
     }
