@@ -1,9 +1,9 @@
 ﻿namespace Number_interpreter;
 
-public static class FromElevenToNineteenExtensions
+public static class TensExtensions
 {
     public static IApplicationBuilder UseTens(this IApplicationBuilder builder)
     {
-        return builder.UseMiddleware<FromElevenToNineteenMiddleware>();
+        return builder.UseMiddleware<HundredsMiddleware>();
     }
 }

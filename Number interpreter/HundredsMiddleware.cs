@@ -16,10 +16,10 @@ public class HundredsMiddleware
         {
             var number = Convert.ToInt32(token);
             number = Math.Abs(number);
-            //if (number < 20)
-            //{
-            //    await _next.Invoke(context);
-            //}
+            if (number < 100)
+            {
+                await _next.Invoke(context);
+            }
             //else if (number > 100)
             //{
             //    await context.Response.WriteAsync("Number greater than one hundred");
@@ -30,8 +30,8 @@ public class HundredsMiddleware
             //}
             //else
             //{
-                // Получение сотен
-                int hundreds = number % 1000 / 100;
+            // Получение сотен
+            int hundreds = number % 1000 / 100;
                 
                 // Перевод сотен в слова
                 if (hundreds > 0)

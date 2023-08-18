@@ -56,15 +56,26 @@ public class ThousandsMiddleware
                     if (countNumbersInDigit == 2)
                     {
                         var num1 = thousands / 10;
-                        var num2 = thousands % 10;
-                        string[] Numbers = { "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
-
-                        result = Numbers[num1 - 2];
-
-                        if (num2 > 0)
+                        if (num1 == 1)
                         {
-                            string[] Numbers2 = { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
-                            result += " " + Numbers2[num2 - 1];
+                            string[] Numbers =
+                            {
+                                "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen",
+                                "seventeen", "eighteen", "nineteen" };
+                            result = Numbers[thousands % 10];
+                        }
+                        else
+                        {
+                            var num2 = thousands % 10;
+                            string[] Numbers = { "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
+
+                            result = Numbers[num1 - 2];
+
+                            if (num2 > 0)
+                            {
+                                string[] Numbers2 = { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
+                                result += " " + Numbers2[num2 - 1];
+                            }
                         }
                         result += " " + "thousand";     
                     }
