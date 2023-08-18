@@ -20,14 +20,14 @@ public class FromTwentyToHundredMiddleware
             {
                 await _next.Invoke(context);
             }
-            else if (number > 100)
-            {
-                await context.Response.WriteAsync("Number greater than one hundred");
-            }
-            else if (number == 100)
-            {
-                await context.Response.WriteAsync("Your number is one hundred");
-            }
+            //else if (number > 100)
+            //{
+            //    await context.Response.WriteAsync("Number greater than one hundred");
+            //}
+            //else if (number == 100)
+            //{
+            //    await context.Response.WriteAsync("Your number is one hundred");
+            //}
             else
             {
                 number /= 10;
