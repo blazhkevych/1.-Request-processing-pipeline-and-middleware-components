@@ -1,10 +1,10 @@
 ﻿namespace Number_interpreter;
 
-public class FromOneToTenMiddleware
+public class OnesMiddleware
 {
     private readonly RequestDelegate _next;
 
-    public FromOneToTenMiddleware(RequestDelegate next)
+    public OnesMiddleware(RequestDelegate next)
     {
         _next = next;
     }

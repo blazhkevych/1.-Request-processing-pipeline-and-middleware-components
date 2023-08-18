@@ -50,7 +50,7 @@ public class ThousandsMiddleware
                     string? result = string.Empty;
                     if (countNumbersInDigit == 1)
                     {
-                        string[] Numbers = { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" }; // множина, однина
+                        string[] Numbers = { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" }; 
                         result = Numbers[thousands - 1] + " " + "thousand";
                     }
                     if (countNumbersInDigit == 2)

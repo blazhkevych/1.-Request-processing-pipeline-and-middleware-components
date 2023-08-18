@@ -15,7 +15,7 @@ public class FromElevenToNineteenMiddleware
         try
         {
             var number = Convert.ToInt32(token);
-            number = Math.Abs(number);
+            number = Math.Abs(number) % 100;
             if (number < 11 || number > 19)
             {
                 await _next.Invoke(context);
