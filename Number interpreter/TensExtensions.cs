@@ -4,6 +4,6 @@ public static class TensExtensions
 {
     public static IApplicationBuilder UseTens(this IApplicationBuilder builder)
     {
-        return builder.UseMiddleware<HundredsMiddleware>();
+        return builder.UseMiddleware<TensMiddleware>();
     }
 }

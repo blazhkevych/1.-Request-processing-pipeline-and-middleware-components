@@ -29,30 +29,33 @@ public class ThousandsMiddleware
             else
             {
                 // Подсчет количества цифр в числе
-                int countNumbersInDigit = 0;
-                int temp = number; // 99538
+                var countNumbersInDigit = 0;
+                var temp = number; // 99538
                 while (temp > 0)
                 {
-                    temp /= 10; 
+                    temp /= 10;
                     countNumbersInDigit++; // 5
                 }
+
                 // Подсчет количества тысяч
-                int thousands = 0;
+                var thousands = 0;
                 if (countNumbersInDigit > 3)
                 {
                     thousands = number / 1000; // 99
                     number %= 1000; // 538
                     countNumbersInDigit -= 3; // 2
                 }
+
                 // Перевод количества тысяч в слова
                 if (thousands > 0)
                 {
-                    string? result = string.Empty;
+                    var result = string.Empty;
                     if (countNumbersInDigit == 1)
                     {
-                        string[] Numbers = { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" }; 
+                        string[] Numbers = { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
                         result = Numbers[thousands - 1] + " " + "thousand";
                     }
+
                     if (countNumbersInDigit == 2)
                     {
                         var num1 = thousands / 10;
@@ -61,28 +64,31 @@ public class ThousandsMiddleware
                             string[] Numbers =
                             {
                                 "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen",
-                                "seventeen", "eighteen", "nineteen" };
+                                "seventeen", "eighteen", "nineteen"
+                            };
                             result = Numbers[thousands % 10];
                         }
                         else
                         {
                             var num2 = thousands % 10;
-                            string[] Numbers = { "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
+                            string[] Numbers =
+                                { "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
 
                             result = Numbers[num1 - 2];
 
                             if (num2 > 0)
                             {
-                                string[] Numbers2 = { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
+                                string[] Numbers2 =
+                                    { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
                                 result += " " + Numbers2[num2 - 1];
                             }
                         }
-                        result += " " + "thousand";     
+
+                        result += " " + "thousand";
                     }
+
                     if (countNumbersInDigit == 3)
-                    {
                         await context.Response.WriteAsync("Your number is one hundred thousand");
-                    }
 
                     context.Session.SetString("number", result);
                     await _next.Invoke(context);

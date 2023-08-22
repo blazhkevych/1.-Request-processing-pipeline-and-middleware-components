@@ -1,10 +1,9 @@
-﻿namespace Number_interpreter
+﻿namespace Number_interpreter;
+
+public static class ThousandsExtensions
 {
-    public static class ThousandsExtensions
+    public static IApplicationBuilder UseThousands(this IApplicationBuilder builder)
     {
-        public static IApplicationBuilder UseThousands(this IApplicationBuilder builder)
-        {
-            return builder.UseMiddleware<ThousandsMiddleware>();
-        }
+        return builder.UseMiddleware<ThousandsMiddleware>();
     }
 }

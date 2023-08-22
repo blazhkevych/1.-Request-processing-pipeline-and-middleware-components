@@ -16,34 +16,21 @@ public class HundredsMiddleware
         {
             var number = Convert.ToInt32(token);
             number = Math.Abs(number);
+            // Получение сотен
+            var hundreds = number % 1000 / 100;
             if (number < 100)
             {
                 await _next.Invoke(context);
             }
-            //else if (number > 100)
-            //{
-            //    await context.Response.WriteAsync("Number greater than one hundred");
-            //}
-            //else if (number == 100)
-            //{
-            //    await context.Response.WriteAsync("Your number is one hundred");
-            //}
-            //else
-            //{
-            // Получение сотен
-            int hundreds = number % 1000 / 100;
-                
-                // Перевод сотен в слова
-                if (hundreds > 0)
-                {
-                    string[] Numbers = { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
-                    await context.Response.WriteAsync("Your number is " + Numbers[hundreds - 1] + " hundred");
-                    string result = context.Session.GetString("number") + " " + Numbers[hundreds - 1] + " " + "hundred";
+            // Перевод сотен в слова
+            else
+            {
+                string[] Numbers = { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
+                var result = context.Session.GetString("number") + " " + Numbers[hundreds - 1] + " " + "hundred";
 
-                    context.Session.SetString( "number", result);
-                    await _next.Invoke(context);
-                }
-            //}
+                context.Session.SetString("number", result);
+                await _next.Invoke(context);
+            }
         }
         catch (Exception)
         {

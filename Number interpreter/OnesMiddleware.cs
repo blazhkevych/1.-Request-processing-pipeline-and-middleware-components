@@ -18,26 +18,18 @@ public class OnesMiddleware
             number = Math.Abs(number);
             if (number == 10)
             {
-                await context.Response.WriteAsync("Your number is ten");
+                await context.Response.WriteAsync("Your number is " + context.Session.GetString("number") + " " +
+                                                  "ten");
             }
             else
             {
-                var result = string.Empty;
-                if (number > 10)
-                    result = context.Session.GetString("number");
                 number %= 10;
                 string[] Numbers = { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
-                if (number > 0)
-                {
-                    if (result == string.Empty)
-                        await context.Response.WriteAsync("Your number is " + Numbers[number - 1]);
-                    else
-                        await context.Response.WriteAsync("Your number is " + result + " " + Numbers[number - 1]);
-                }
-                else
-                {
-                    await context.Response.WriteAsync("Your number is " + result);
-                }
+                var ses = context.Session.GetString("number");
+                context.Session.SetString("number", ses + " " + Numbers[number - 1]);
+                var newses = context.Session.GetString("number"); // test
+
+                await context.Response.WriteAsync("Your number is " + context.Session.GetString("number"));
             }
         }
         catch (Exception)
