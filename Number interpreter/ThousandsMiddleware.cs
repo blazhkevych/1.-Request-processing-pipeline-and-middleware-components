@@ -30,20 +30,20 @@ public class ThousandsMiddleware
             {
                 // Подсчет количества цифр в числе
                 var countNumbersInDigit = 0;
-                var temp = number; // 99538
+                var temp = number;
                 while (temp > 0)
                 {
                     temp /= 10;
-                    countNumbersInDigit++; // 5
+                    countNumbersInDigit++;
                 }
 
                 // Подсчет количества тысяч
                 var thousands = 0;
                 if (countNumbersInDigit > 3)
                 {
-                    thousands = number / 1000; // 99
-                    number %= 1000; // 538
-                    countNumbersInDigit -= 3; // 2
+                    thousands = number / 1000;
+                    number %= 1000;
+                    countNumbersInDigit -= 3;
                 }
 
                 // Перевод количества тысяч в слова
@@ -54,9 +54,10 @@ public class ThousandsMiddleware
                     {
                         string[] Numbers = { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
                         result = Numbers[thousands - 1] + " " + "thousand";
+                        context.Session.SetString("number", result);
+                        await _next.Invoke(context);
                     }
-
-                    if (countNumbersInDigit == 2)
+                    else if (countNumbersInDigit == 2)
                     {
                         var num1 = thousands / 10;
                         if (num1 == 1)
@@ -85,13 +86,13 @@ public class ThousandsMiddleware
                         }
 
                         result += " " + "thousand";
+                        context.Session.SetString("number", result);
+                        await _next.Invoke(context);
                     }
-
-                    if (countNumbersInDigit == 3)
+                    else
+                    {
                         await context.Response.WriteAsync("Your number is one hundred thousand");
-
-                    context.Session.SetString("number", result);
-                    await _next.Invoke(context);
+                    }
                 }
             }
         }
